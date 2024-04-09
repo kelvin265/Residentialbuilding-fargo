@@ -210,10 +210,26 @@ session_start();
         <li class="menu-header">Prerequisits</li>
         <li class="dropdown">
           <a href="#" class="menu-toggle nav-link has-dropdown"><i
+              data-feather="users"></i><span>Workers</span></a>
+          <ul class="dropdown-menu">
+            <li><a class="nav-link" href="create-worker.php">New Worker</a></li>
+            <li><a class="nav-link" href="manage-workers.php">Manage Workers</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="menu-toggle nav-link has-dropdown"><i
               data-feather="slack"></i><span>Worker Types</span></a>
           <ul class="dropdown-menu">
-            <li><a class="nav-link" href="create-worker-types.php">New Worker Types</a></li>
+            <li><a class="nav-link" href="create-worker-type.php">New Worker Types</a></li>
             <li><a class="nav-link" href="manage-worker-types.php">Manage Worker Types</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="menu-toggle nav-link has-dropdown"><i
+              data-feather="truck"></i><span>Machinery</span></a>
+          <ul class="dropdown-menu">
+            <li><a class="nav-link" href="create-machine.php">New Machines</a></li>
+            <li><a class="nav-link" href="manage-machines.php">Manage Machines</a></li>
           </ul>
         </li>
         <li class="dropdown">
@@ -222,6 +238,14 @@ session_start();
           <ul class="dropdown-menu">
             <li><a class="nav-link" href="create-phase.php">new phase</a></li>
             <li><a class="nav-link" href="manage-phases.php">Manage Phases</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="menu-toggle nav-link has-dropdown"><i
+              data-feather="shopping-bag"></i><span>Parts</span></a>
+          <ul class="dropdown-menu">
+            <li><a class="nav-link" href="create-part.php">New Part</a></li>
+            <li><a class="nav-link" href="manage-parts.php">Manage Parts</a></li>
           </ul>
         </li>
         <li class="menu-header">Other Pages</li>

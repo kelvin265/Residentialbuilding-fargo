@@ -5,7 +5,7 @@
         extract($_POST);
         $worker_type = new WorkerType();
         $worker_type->worker_type_code= $new_worker_type_code;
-        $worker_type->worker_type_description= $new_worker_type_description;
+        $worker_type->worker_type_description= $worker_type_description;
         $worker_type->hourly_rate = $hourly_rate ;
 
         $worker_type->newWorkerType();

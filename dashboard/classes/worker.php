@@ -23,7 +23,7 @@
                 $data .= ", worker_type_code = '$this->worker_type_code' ";
                 $data .= ", gender = '$this->gender' ";
 
-                $query = "Select * from workers WHERE first_name='".$this->first_name."' AND last_name='".$this->last_name;
+                $query = "Select * from workers WHERE first_name='".$this->first_name."' AND last_name='".$this->last_name."'";
                 $result = DB::DB_Query($query,DB::DB_Conn());
 
                 if($result > 0){

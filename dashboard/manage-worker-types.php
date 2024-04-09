@@ -1,9 +1,8 @@
 <?php require_once "includes/header.php"; ?>
-<?php require_once "classes/user.php"; ?>
+<?php require_once "classes/worker-type.php"; ?>
 <?php 
-  $user = new User();
-  $query = "Select * from users";
-  $users = $user->select($query);
+  $worker_type = new WorkerType();
+  $worker_types = $worker_type->selectAll();
 ?>
     
       <!-- Main Content -->
@@ -14,7 +13,7 @@
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4>Manage Users</h4>
+                    <h4>Manage Types of Workers</h4>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
@@ -24,45 +23,27 @@
                             <th class="text-center">
                               #
                             </th>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                  
-                            <th>Email</th>
-    
-                            <th>User Type</th>
-             
-                            <th>DOB</th>
-                       
-                            <th>Gender</th>
+                            <th>Worker Type Code</th>
+                            <th>Description</th>
+                            <th>Rate Per Hour</th>
                             <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
                           <?php $count = 0; ?>
-                          <?php while($user = $users->fetch_assoc()): ?>
+                          <?php while($worker_type = $worker_types->fetch_assoc()): ?>
                           <?php $count++; ?>
                           <tr>
                             <td>
                               <?= $count;?>
                             </td>
-                            <td><?= $user['first_name']?></td>
-                            <td><?= $user['last_name']?></td>
-                            <td><?=  $user['email']?></td>
-
-                            <?php if($user['user_type'] == 0):?>
-                              <td>Employee</td>
-                            <?php else:?>
-                              <td>Admin</td>
-                            <?php endif;?>
-                         
-                            <td><?= $user['dob']?></td>
-                            <td>
-                            <?= $user['gender']?>
-                            </td>
+                            <td><?= $worker_type['worker_type_code']?></td>
+                            <td><?= $worker_type['worker_type_description']?></td>
+                            <td><?= $worker_type['hourly_rate']?></td>
                             <td>
                               <a href="#" class="btn btn-primary"><i class="material-icons">create</i> <span
 														class="icon-name"></a>
-                              <a href="controllers/user-controller.php?delete_id=<?= $user['user_id']?>" class="btn btn-danger"><i class="material-icons">delete_forever</i> <span
+                              <a href="controllers/worker-type-controller.php?delete_id=<?= $worker_type['worker_type_code']?>" class="btn btn-danger"><i class="material-icons">delete_forever</i> <span
 														class="icon-name"></a>
                             </td>
                           </tr>

@@ -4,7 +4,7 @@
     if(isset($_POST["new_part_name"])){
         extract($_POST);
         $part = new Part();
-        $part->name = $new_part_name;
+        $part->part_name = $new_part_name;
         $part->price = $price;
         $part->description = $description;
 

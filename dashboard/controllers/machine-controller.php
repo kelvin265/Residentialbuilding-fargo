@@ -6,6 +6,7 @@
         $machine = new Machine();
         $machine->name = $new_name;
         $machine->description = $description;
+        $machine->daily_rate = $daily_rate;
 
         $machine->newMachine();
     }

@@ -4,7 +4,7 @@
     if(isset($_POST["new_first_name"])){
         extract($_POST);
         $worker = new Worker();
-        $worker->first_name= $first_name;
+        $worker->first_name= $new_first_name;
         $worker->last_name= $last_name;
         $worker->address = $address ;
         $worker->gender= $gender;
