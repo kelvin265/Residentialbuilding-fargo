@@ -1,5 +1,5 @@
 <?PHP
-require_once '../config.php';
+require_once 'config.php';
 class DB
 {
     public $conn;

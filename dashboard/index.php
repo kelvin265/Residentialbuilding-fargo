@@ -2,6 +2,8 @@
   session_start();
   ini_set('Erros',1);
   error_reporting(E_ALL);
+
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +13,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Otika - Admin Dashboard Template</title>
+  <title>Fargo Residential Building System</title>
   <!-- General CSS Files -->
   <link rel="stylesheet" href="assets/css/app.min.css">
   <link rel="stylesheet" href="assets/bundles/bootstrap-social/bootstrap-social.css">
@@ -39,12 +41,12 @@
                   <?= $_SESSION['message']; ?>
                 </div>
               </div>
-              <?php elseif(isset($_SESSION['error_message'])): ?>
+              <?php elseif(isset($_SESSION['login_error_message'])): ?>
                 <div class="alert alert-danger alert-has-icon">
                   <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
                   <div class="alert-body">
-                    <div class="alert-title">Danger</div>
-                    <?= $_SESSION['error_message']; ?>
+                    <div class="alert-title">Error</div>
+                    <?= $_SESSION['login_error_message']; ?>
                   </div>
                 </div>
               <?php endif; ?>
@@ -63,11 +65,6 @@
                   <div class="form-group">
                     <div class="d-block">
                       <label for="password" class="control-label">Password</label>
-                      <div class="float-right">
-                        <a href="auth-forgot-password.html" class="text-small">
-                          Forgot Password?
-                        </a>
-                      </div>
                     </div>
                     <input id="password" type="password" class="form-control" name="login_password" tabindex="2" required>
                     <div class="invalid-feedback">

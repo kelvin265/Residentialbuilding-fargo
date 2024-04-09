@@ -1,5 +1,5 @@
 <?PHP
-session_start();
+
 include_once "db.php";
 class User {
 
@@ -15,6 +15,9 @@ class User {
 
     public function login(){
         try{
+            foreach ($_SESSION as $key => $value) {
+                unset($_SESSION[$key]);
+            }
             $query = "SELECT * FROM users where email = '".$this->email."'";
             $result = DB::DB_Query($query,DB::DB_Conn());
             if($result > 0 ){    
@@ -25,20 +28,18 @@ class User {
                             $_SESSION['login_'.$key] = $value;
                         }
                     }
-                    header("location:dashboard.php");
+                    header("location:../dashboard.php");
                 }
                 else{
-                    throw new Exception("Incorrect password: ". $this->password);
+                    
+                    throw new Exception("Incorrect password: ". $this->password . password_get_info($user["password"])['algoName']);
                 }
             }else{
                 throw new Exception("Cannot find: ". $this->email);
             }
         }
         catch (Exception $e){
-            foreach ($_SESSION as $key => $value) {
-                unset($_SESSION[$key]);
-            }
-            $_SESSION['error_message'] = "Exception : " . $e->getMessage() . ", Code: " . $e->getCode() . "<\ br>";
+            $_SESSION['login_error_message'] = "Exception : " . $e->getMessage();
             header("location:../index.php");
         }
     }
@@ -49,7 +50,7 @@ class User {
             foreach ($_SESSION as $key => $value) {
                 unset($_SESSION[$key]);
             }
-            header("location:index.php");
+            header("location:../index.php");
             
         }
         catch (Exception $e){
@@ -94,8 +95,7 @@ class User {
 
         }
         catch (Exception $e){
-            $_SESSION['error_message'] = "Exception : " . $e->getMessage() . ", Code: " . $e->getCode() . "<\ br>";
-            header("location:../auth-register.php");
+            header("location:../profile.php");
         }
     }
 
@@ -115,6 +115,7 @@ class User {
 
             if($result > 0){
                 throw new Exception("Email is already registered to another user");
+                
             }else{
                 $query = "INSERT INTO users set ".$data;
                 $result = DB::DB_Insert_Or_Update($query,DB::DB_Conn());
@@ -126,6 +127,9 @@ class User {
                         }
                         $_SESSION['message'] = "User registered successfully, you can now login";
                         header("location:../index.php");
+                    }else{
+                        $_SESSION['message'] = "New admin User registered successfully";
+                        header("location:../manage-users.php");
                     }
                 }
                 
@@ -136,17 +140,11 @@ class User {
             foreach ($_SESSION as $key => $value) {
                 unset($_SESSION[$key]);
             }
-            $_SESSION['error_message'] = "Exception : " . $e->getMessage() . ", Code: " . $e->getCode() . "<\ br>";
+            $_SESSION['error_message'] = "Exception : " . $e->getMessage() . ", Code: " . $e->getCode();
             header("location:../auth-register.php");
         }
     }
 
-
-    public function selectAllUsers(){
-        $query = "Select * from users";
-        $result = DB::DB_Read($query,DB::DB_Conn());
-        return $result;
-    }
     public function select($query){
         $result = DB::DB_Read($query,DB::DB_Conn());
         return $result;
