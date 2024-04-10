@@ -1,6 +1,6 @@
 <?php 
     require_once "db.php";
-    class Project
+    class Activity
     {
 
         public function __set($name, $value)
@@ -14,25 +14,28 @@
             }
         }
 
-        public function newProject(){
+        public function newActivity(){
             try{
                 $data = " start_date = '$this->start_date' ";
                 $data .= ", end_date = '$this->end_date' ";
                 $data .= ", est_start_date = '$this->est_end_date' ";
                 $data .= ", est_end_date = '$this->est_end_date' ";
                 $data .= ", customer_id = '$this->customer_id' ";
-                $data .= ", project_name = '$this->project_name' ";
+                $data .= ", activity_name = '$this->activity_name' ";
+                $data .= ", phase_id = '$this->phase_id' ";
+                $data .= ", project_id = '$this->project_id' ";
+                $data .= ", img_url = '$this->img_url' ";
 
-                $query = "Select * from projects WHERE project_name='".$this->project_name;
+                $query = "Select * from activitys WHERE name='".$this->name;
                 $result = DB::DB_Query($query,DB::DB_Conn());
 
                 if($result > 0){
-                    throw new Exception("This name of project is already registered");
+                    throw new Exception("This name of activity is already registered");
                 }else{
-                    $query = "INSERT INTO projects set ".$data;
+                    $query = "INSERT INTO activitys set ".$data;
                     $result = DB::DB_Insert_Or_Update($query,DB::DB_Conn());
                     
-                        header("location:../manage-projects.php");
+                        header("location:../manage-activities.php");
                 }
             }
             catch (Exception $e){
@@ -41,16 +44,19 @@
             }
         }
 
-        public function editProject(){
+        public function editActivity(){
             try{
                 $data = " start_date = '$this->start_date' ";
                 $data .= ", end_date = '$this->end_date' ";
                 $data .= ", est_start_date = '$this->est_end_date' ";
                 $data .= ", est_end_date = '$this->est_end_date' ";
                 $data .= ", customer_id = '$this->customer_id' ";
-                $data .= ", project_name = '$this->project_name' ";
+                $data .= ", description = '$this->activity_name' ";
+                $data .= ", phase_id = '$this->phase_id' ";
+                $data .= ", project_id = '$this->project_id' ";
+                $data .= ", img_url = '$this->img_url' ";
 
-                $query = "UPDATE projects set ".$data."WHERE project_id='".$this->project_id."'";
+                $query = "UPDATE activities set ".$data."WHERE activity_id='".$this->activity_id."'";
                 DB::DB_Insert_Or_Update($query,DB::DB_Conn());
             }
             catch (Exception $e){
@@ -60,7 +66,7 @@
         }
 
         public function selectAll(){
-            $query = "Select * from projects";
+            $query = "Select * from activities";
             $result = DB::DB_Read($query,DB::DB_Conn());
             return $result;
         }
@@ -71,8 +77,8 @@
         }
 
 
-        public function deleteProject(){
-            $query = "DELETE FROM projects  where project_id='".$this->project_id."'";
+        public function deleteActivity(){
+            $query = "DELETE FROM activities  where activity_id='".$this->activity_id."'";
             $result = DB::DB_Read($query,DB::DB_Conn());
             return $result;
         }

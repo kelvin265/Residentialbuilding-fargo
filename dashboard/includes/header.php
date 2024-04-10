@@ -58,7 +58,7 @@ require_once "classes/user.php";
         </div>
         <ul class="navbar-nav navbar-right">
           <li class="dropdown"><a href="#" data-toggle="dropdown"
-              class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="assets/img/user.jpg"
+              class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="assets/img/user.png"
                 class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
             <div class="dropdown-menu dropdown-menu-right pullDown">
               <div class="dropdown-title">Hello <?= $_SESSION['login_first_name'];?> <?= $_SESSION['login_last_name'];?></div>
@@ -207,6 +207,16 @@ require_once "classes/user.php";
             </ul>
         </li>
         <li><a class="nav-link" href="timeline.php"><i data-feather="sliders"></i><span>Timeline</span></a></li>
+        <li class="menu-header">Main Components</li>
+        <li class="dropdown">
+          <a href="#" class="menu-toggle nav-link has-dropdown"><i
+              data-feather="cpu"></i><span>Project</span></a>
+          <ul class="dropdown-menu">
+            <li><a class="nav-link" href="create-project.php">New Project</a></li>
+            <li><a class="nav-link" href="manage-projectss.php">Manage Projects</a></li>
+          </ul>
+        </li>
+        <?php if($_SESSION['login_user_type'] == 1): ?>
         <li class="menu-header">Prerequisits</li>
         <li class="dropdown">
           <a href="#" class="menu-toggle nav-link has-dropdown"><i
@@ -258,6 +268,7 @@ require_once "classes/user.php";
 
           </ul>
         </li>
+        <?php endif; ?>
         <li class="dropdown">
           <a href="#" class="menu-toggle nav-link has-dropdown"><i
               data-feather="copy"></i><span>Reports</span></a>

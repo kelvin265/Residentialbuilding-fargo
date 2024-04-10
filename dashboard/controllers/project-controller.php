@@ -4,8 +4,13 @@
     if(isset($_POST["new_name"])){
         extract($_POST);
         $project = new Project();
-        $project->name = $new_name;
-        $project->description = $description;
+        $project->name = $new_project_name;
+        $project->customer_id = $cusstomer_id;
+        $project->start_date = $start_date;
+        $project->end_date= $end_date;
+        $project->est_start_date = $est_start_date;
+        $project->est_end_date = $est_end_date;
+
 
         $project->newProject();
     }
