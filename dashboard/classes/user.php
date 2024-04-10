@@ -1,5 +1,5 @@
 <?PHP
-
+session_start();
 include_once "db.php";
 class User {
 
@@ -27,7 +27,7 @@ class User {
                         if($key != 'pass' && !is_numeric($key)){ 
                             $_SESSION['login_'.$key] = $value;
                         }
-                    }
+                    } 
                     header("location:../dashboard.php");
                 }
                 else{

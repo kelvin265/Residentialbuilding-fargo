@@ -1,5 +1,5 @@
 <?php 
-session_start(); 
+require_once "classes/user.php";
 //authenticate before accessing site pages
   if(!isset($_SESSION['login_user_id'])){
     header('location:index.php');
