@@ -210,10 +210,17 @@ require_once "classes/user.php";
         <li class="menu-header">Main Components</li>
         <li class="dropdown">
           <a href="#" class="menu-toggle nav-link has-dropdown"><i
+              data-feather="cpu"></i><span>My Projects</span></a>
+          <ul class="dropdown-menu">
+            <li><a class="nav-link" href="manage-my-projects.php">Manage Projects</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="menu-toggle nav-link has-dropdown"><i
               data-feather="cpu"></i><span>Project</span></a>
           <ul class="dropdown-menu">
             <li><a class="nav-link" href="create-project.php">New Project</a></li>
-            <li><a class="nav-link" href="manage-projectss.php">Manage Projects</a></li>
+            <li><a class="nav-link" href="manage-projects.php">Manage Projects</a></li>
           </ul>
         </li>
         <?php if($_SESSION['login_user_type'] == 1): ?>

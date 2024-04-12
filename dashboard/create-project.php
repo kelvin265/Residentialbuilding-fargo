@@ -11,7 +11,7 @@ $users = $user->select($query);
             <div class="row">
               <div class="col-12 col-md-12 col-lg-12">
                 <div class="card">
-                  <form method="post" action="controllers/machine-controller.php" class="needs-validation" novalidate="">
+                  <form method="post" action="controllers/project-controller.php" class="needs-validation" novalidate="">
                     <div class="card-header">
                       <h4>New House Building Project</h4>
                     </div>
@@ -31,22 +31,6 @@ $users = $user->select($query);
                         <?php endwhile; ?>
                         </select>
                       </div>
-                      <!-- <div class="form-group">
-                        <label>Starting Date</label>
-                        <input type="text" name="start_date" class="form-control datepicker">
-                      </div>
-                      <div class="form-group">
-                        <label>End Date</label>
-                        <input type="text" name="end_date" class="form-control datepicker">
-                      </div>
-                      <div class="form-group">
-                        <label>Estimated Start Date</label>
-                        <input type="text" name="est_start_date" class="form-control datepicker">
-                      </div>
-                      <div class="form-group">
-                        <label>Estimated End Date</label>
-                        <input type="text" name="est_end_date" class="form-control datepicker">
-                      </div> -->
                     </div>
                     <div class="card-footer text-right">
                       <button class="btn btn-primary">Submit</button>

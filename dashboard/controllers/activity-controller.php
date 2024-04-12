@@ -12,7 +12,7 @@
         $activity->est_end_date = $est_end_date;
 
 
-        $activity->newactivity();
+        $activity->newActivity();
     }
 
      // deleting a activity
@@ -20,7 +20,7 @@
         extract($_GET);
         $activity = new Activity();
         $activity->activity_id = $delete_id;
-        $activity->deleteactivity();
+        $activity->deleteActivity();
 
         header("location:../manage-activities.php");
 

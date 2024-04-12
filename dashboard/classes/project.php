@@ -15,15 +15,12 @@
         }
 
         public function newProject(){
+            echo $this->project_name;
             try{
-                $data = " start_date = '$this->start_date' ";
-                $data .= ", end_date = '$this->end_date' ";
-                $data .= ", est_start_date = '$this->est_end_date' ";
-                $data .= ", est_end_date = '$this->est_end_date' ";
-                $data .= ", customer_id = '$this->customer_id' ";
-                $data .= ", project_name = '$this->project_name' ";
+                $data = "project_name = '$this->project_name' ";
+                $data .= ",customer_id = '$this->customer_id' ";
 
-                $query = "Select * from projects WHERE project_name='".$this->project_name;
+                $query = "Select * from projects where project_name='".$this->project_name."'";
                 $result = DB::DB_Query($query,DB::DB_Conn());
 
                 if($result > 0){
@@ -43,12 +40,17 @@
 
         public function editProject(){
             try{
-                $data = " start_date = '$this->start_date' ";
-                $data .= ", end_date = '$this->end_date' ";
-                $data .= ", est_start_date = '$this->est_end_date' ";
-                $data .= ", est_end_date = '$this->est_end_date' ";
-                $data .= ", customer_id = '$this->customer_id' ";
-                $data .= ", project_name = '$this->project_name' ";
+                $data = "";
+                if(isset($this->start_date)){
+                    $data = "start_date = '$this->start_date' ";
+                }
+                if(isset($this->end_date)){
+                    $data = " end_date = '$this->end_date' ";
+                }
+                if(isset($this->est_start_date )){
+                    $data = "est_start_date = '$this->est_start_date' ";
+                    $data .= ", est_end_date = '$this->est_end_date' ";
+                }
 
                 $query = "UPDATE projects set ".$data."WHERE project_id='".$this->project_id."'";
                 DB::DB_Insert_Or_Update($query,DB::DB_Conn());
@@ -76,6 +78,18 @@
             $result = DB::DB_Read($query,DB::DB_Conn());
             return $result;
         }
+
+        function daysBetweenDates($date1, $date2) {
+            // Create DateTime objects from the dates
+            $dateObj1 = new DateTime($date1);
+            $dateObj2 = new DateTime($date2);
+          
+            // Calculate the difference between the dates
+            $interval = $dateObj1->diff($dateObj2);
+          
+            // Return the number of days (consider using $interval->format('%d') for formatted output)
+            return $interval->days;
+          }
 
     }
 

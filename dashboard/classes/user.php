@@ -149,6 +149,11 @@ class User {
         $result = DB::DB_Read($query,DB::DB_Conn());
         return $result;
     }
+    public function selectAll(){
+        $query = "Select * from users";
+        $result = DB::DB_Read($query,DB::DB_Conn());
+        return $result;
+    }
     public function deleteUser(){
         $query = "DELETE FROM users  where user_id='".$this->user_id."'";
         $result = DB::DB_Read($query,DB::DB_Conn());
