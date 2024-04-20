@@ -147,7 +147,6 @@ require_once "classes/user.php";
             <li><a class="nav-link" href="tabs.php">Tab</a></li>
             </ul>
         </li>
-        <li><a class="nav-link" href="blank.php"><i data-feather="file"></i><span>Blank Page</span></a></li>
         <li class="menu-header">Otika</li>
         <li class="dropdown">
             <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layout"></i><span>Forms</span></a>
