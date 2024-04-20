@@ -14,28 +14,25 @@
             }
         }
 
-        public function newActivity(){
+        public function new_est_Activity(){
             try{
                 $data = " start_date = '$this->start_date' ";
                 $data .= ", end_date = '$this->end_date' ";
-                $data .= ", est_start_date = '$this->est_end_date' ";
-                $data .= ", est_end_date = '$this->est_end_date' ";
-                $data .= ", customer_id = '$this->customer_id' ";
-                $data .= ", activity_name = '$this->activity_name' ";
+                $data .= ", description = '$this->description' ";
                 $data .= ", phase_id = '$this->phase_id' ";
                 $data .= ", project_id = '$this->project_id' ";
-                $data .= ", img_url = '$this->img_url' ";
+                $data .= ", estimated = '$this->estimated' ";
 
-                $query = "Select * from activitys WHERE name='".$this->name;
+                $query = "Select * from activities WHERE description='".$this->description."'";
                 $result = DB::DB_Query($query,DB::DB_Conn());
 
                 if($result > 0){
                     throw new Exception("This name of activity is already registered");
                 }else{
-                    $query = "INSERT INTO activitys set ".$data;
+                    $query = "INSERT INTO activities set ".$data;
                     $result = DB::DB_Insert_Or_Update($query,DB::DB_Conn());
                     
-                        header("location:../manage-activities.php");
+                        header("location:../project-assessment.php?project_id= '$this->project_id'");
                 }
             }
             catch (Exception $e){

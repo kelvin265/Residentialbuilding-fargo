@@ -81,46 +81,46 @@
       </div>
       <!-- Modal with form -->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
-          aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="formModal">The Project Time Frame (Year - Month - Day)</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form class="" method="Post" action="controllers/project-controller.php">
-                  <div class="form-group">
-                    <label>Estimate The Start Date</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <i class="fas fa-calendar-alt"></i>
-                        </div>
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="formModal">The Project Time Frame (Year - Month - Day)</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form class="" method="Post" action="controllers/project-controller.php">
+                <div class="form-group">
+                  <label>Estimate The Start Date</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fas fa-calendar-alt"></i>
                       </div>
-                      <input type="text" class="form-control datepicker" placeholder="0000-00-00" name="est_start_date">
-                      <input type="hidden" name="project_id" id="idInput">
                     </div>
+                    <input type="text" class="form-control datepicker" placeholder="0000-00-00" name="est_start_date">
+                    <input type="hidden" name="project_id" id="idInput">
                   </div>
-                  <div class="form-group">
-                    <label>Estimate The End Date</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <i class="fas fa-calendar-alt"></i>
-                        </div>
+                </div>
+                <div class="form-group">
+                  <label>Estimate The End Date</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fas fa-calendar-alt"></i>
                       </div>
-                      <input type="text" class="form-control datepicker" placeholder="0000-00-00"  name="est_end_date">
                     </div>
+                    <input type="text" class="form-control datepicker" placeholder="0000-00-00"  name="est_end_date">
                   </div>
-                  <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
-                </form>
-              </div>
+                </div>
+                <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
+              </form>
             </div>
           </div>
         </div>
+      </div>
       <footer class="main-footer">
         <div class="footer-left">
           <a href="#">Residential Building Fargo</a></a>

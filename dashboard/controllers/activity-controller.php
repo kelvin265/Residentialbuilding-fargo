@@ -1,18 +1,18 @@
 <?php
     include_once "../classes/activity.php";
     // adding a new activity
-    if(isset($_POST["new_name"])){
+    if(isset($_POST["est_description"])){
         extract($_POST);
         $activity = new Activity();
-        $activity->name = $new_name;
-        $activity->customer_id = $cusstomer_id;
-        $activity->start_date = $start_date;
+        $activity->estimated = 1;
+        $activity->phase_id = $phase_id;
+        $activity->project_id = $project_id;
         $activity->end_date= $end_date;
-        $activity->est_start_date = $est_start_date;
-        $activity->est_end_date = $est_end_date;
+        $activity->start_date = $start_date;
+        $activity->description = $est_description;
 
 
-        $activity->newActivity();
+        $activity->new_est_Activity();
     }
 
      // deleting a activity

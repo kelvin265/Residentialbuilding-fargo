@@ -55,7 +55,7 @@
                             <td><?= $project['est_start_date']?></td>
                             <td><?= $project['est_end_date']?></td>
                             <td>
-                              <a href="#" class="btn btn-primary"><i class="material-icons">create</i> <span
+                              <a href="project-assessment.php?project_id=<?= $project['project_id']?>" class="btn btn-primary"><i class="material-icons">assessment</i> <span
 														class="icon-name"></a>
                               <a href="controllers/project-controller.php?delete_id=<?= $project['project_id']?>" class="btn btn-danger"><i class="material-icons">delete_forever</i> <span
 														class="icon-name"></a>
