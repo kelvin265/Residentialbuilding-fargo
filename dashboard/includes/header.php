@@ -80,7 +80,7 @@ require_once "classes/user.php";
         </a>
         </div>
         <ul class="sidebar-menu">
-        <li class="menu-header">Main</li>
+        <!-- <li class="menu-header">Main</li>
         <li class="dropdown">
             <a href="dashboard.php" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
         </li>
@@ -162,8 +162,9 @@ require_once "classes/user.php";
             <li><a class="nav-link" href="icon-feather.php">Feather Icons</a></li>
             <li><a class="nav-link" href="icon-weather-icon.php">Weather Icon</a></li>
             </ul>
-        </li>
+        </li> -->
         <li class="menu-header">Main Components</li>
+        <?php if($_SESSION['login_user_type'] == 0): ?>
         <li class="dropdown">
           <a href="#" class="menu-toggle nav-link has-dropdown"><i
               data-feather="cpu"></i><span>My Projects</span></a>
@@ -171,6 +172,8 @@ require_once "classes/user.php";
             <li><a class="nav-link" href="manage-my-projects.php">Manage Projects</a></li>
           </ul>
         </li>
+        <?php endif; ?>
+        <?php if($_SESSION['login_user_type'] == 1): ?>
         <li class="dropdown">
           <a href="#" class="menu-toggle nav-link has-dropdown"><i
               data-feather="cpu"></i><span>Project</span></a>
@@ -179,7 +182,7 @@ require_once "classes/user.php";
             <li><a class="nav-link" href="manage-projects.php">Manage Projects</a></li>
           </ul>
         </li>
-        <?php if($_SESSION['login_user_type'] == 1): ?>
+        
         <li class="menu-header">Prerequisits</li>
         <li class="dropdown">
           <a href="#" class="menu-toggle nav-link has-dropdown"><i

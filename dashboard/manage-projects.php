@@ -6,6 +6,12 @@
 
   $user = new User();
   $users = $user->selectAll();
+
+  $userRows = [];
+
+  while($row = $users->fetch_assoc()){
+    $userRows[] = $row;
+  }
 ?>
     
       <!-- Main Content -->
@@ -45,11 +51,11 @@
                             </td>
                             <td><?= $project['project_name']?></td>
                             
-                            <?php while($row = $users->fetch_assoc()): ?>
+                            <?php foreach($userRows as $row): ?>
                               <?php if($row['user_id'] == $project['customer_id']): ?>
                               <td><?= $row['first_name']?> <?= $row['last_name']?></td>
                               <?php endif; ?>
-                            <?php endwhile; ?>
+                            <?php endforeach; ?>
                             <td><?= $project['start_date']?></td>
                             <td><?= $project['end_date']?></td>
                             <td><?= $project['est_start_date']?></td>

@@ -1,6 +1,6 @@
 <?php
     include_once "../classes/activity.php";
-    // adding a new activity
+    // adding a new estimate activity
     if(isset($_POST["est_description"])){
         extract($_POST);
         $activity = new Activity();
@@ -13,6 +13,20 @@
 
 
         $activity->new_est_Activity();
+    }
+
+    // adding a new actual activity
+    if(isset($_POST["actual_description"])){
+        extract($_POST);
+        $activity = new Activity();
+        $activity->estimated = 0;
+        $activity->phase_id = $phase_id;
+        $activity->project_id = $project_id;
+        $activity->start_date = $start_date;
+        $activity->description = $actual_description;
+
+
+        $activity->new_actual_Activity();
     }
 
      // deleting a activity
@@ -55,6 +69,16 @@
         $activity->activity_id = $activity_id;
 
         $activity->addMachine();
+    }
+
+    // ending the activity currently running
+    if(isset($_POST["end_activity"])){
+        extract($_POST);
+        $activity = new Activity();
+        $activity->end_date= $end_activity;
+        $activity->activity_id = $activity_id;
+
+        $activity->endActivity();
     }
 
 ?>

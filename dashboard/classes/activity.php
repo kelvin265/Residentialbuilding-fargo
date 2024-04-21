@@ -23,7 +23,33 @@
                 $data .= ", project_id = '$this->project_id' ";
                 $data .= ", estimated = '$this->estimated' ";
 
-                $query = "Select * from activities WHERE description='".$this->description."' and project_id='".$this->project_id."'";
+                $query = "Select * from activities WHERE description='".$this->description."' and project_id='".$this->project_id."' and estimated='".$this->estimated."'";
+                $result = DB::DB_Query($query,DB::DB_Conn());
+
+                if($result > 0){
+                    throw new Exception("This name of activity is already registered");
+                }else{
+                    $query = "INSERT INTO activities set ".$data;
+                    $result = DB::DB_Insert_Or_Update($query,DB::DB_Conn());
+                    
+                        header("location:../project-assessment.php?project_id=$this->project_id");
+                }
+            }
+            catch (Exception $e){
+                echo "Exception : " . $e->getMessage() . "<\ br>";
+                echo "Code: " . $e->getCode() . "<\ br>";
+            }
+        }
+
+        public function new_actual_Activity(){
+            try{
+                $data = " start_date = '$this->start_date' ";
+                $data .= ", description = '$this->description' ";
+                $data .= ", phase_id = '$this->phase_id' ";
+                $data .= ", project_id = '$this->project_id' ";
+                $data .= ", estimated = '$this->estimated' ";
+
+                $query = "Select * from activities WHERE description='".$this->description."' and project_id='".$this->project_id."' and estimated='".$this->estimated."'";
                 $result = DB::DB_Query($query,DB::DB_Conn());
 
                 if($result > 0){
@@ -55,6 +81,21 @@
 
                 $query = "UPDATE activities set ".$data."WHERE activity_id='".$this->activity_id."'";
                 DB::DB_Insert_Or_Update($query,DB::DB_Conn());
+            }
+            catch (Exception $e){
+                echo "Exception : " . $e->getMessage() . "<\ br>";
+                echo "Code: " . $e->getCode() . "<\ br>";
+            }
+        }
+
+        public function endActivity(){
+            try{
+                $data = "end_date = '$this->end_date' ";
+
+                $query = "UPDATE activities set ".$data."WHERE activity_id='".$this->activity_id."'";
+                DB::DB_Insert_Or_Update($query,DB::DB_Conn());
+
+                header("location:../manage-resources.php?activity_id=$this->activity_id");
             }
             catch (Exception $e){
                 echo "Exception : " . $e->getMessage() . "<\ br>";
