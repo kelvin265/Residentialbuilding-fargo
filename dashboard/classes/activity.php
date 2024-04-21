@@ -23,7 +23,7 @@
                 $data .= ", project_id = '$this->project_id' ";
                 $data .= ", estimated = '$this->estimated' ";
 
-                $query = "Select * from activities WHERE description='".$this->description."'";
+                $query = "Select * from activities WHERE description='".$this->description."' and project_id='".$this->project_id."'";
                 $result = DB::DB_Query($query,DB::DB_Conn());
 
                 if($result > 0){
@@ -32,7 +32,7 @@
                     $query = "INSERT INTO activities set ".$data;
                     $result = DB::DB_Insert_Or_Update($query,DB::DB_Conn());
                     
-                        header("location:../project-assessment.php?project_id= '$this->project_id'");
+                        header("location:../project-assessment.php?project_id=$this->project_id");
                 }
             }
             catch (Exception $e){

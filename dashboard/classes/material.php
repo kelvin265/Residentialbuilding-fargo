@@ -1,6 +1,6 @@
 <?php 
     require_once "db.php";
-    class Part
+    class Material
     {
 
         public function __set($name, $value)
@@ -14,22 +14,22 @@
             }
         }
 
-        public function newPart(){
+        public function newMaterial(){
             try{
-                $data = "part_name = '$this->part_name' ";
+                $data = "material_name = '$this->material_name' ";
                 $data .= ",price = '$this->price' ";
                 $data .= ",description = '$this->description' ";
 
-                $query = "Select * from parts WHERE part_name='".$this->name."'";
+                $query = "Select * from materials WHERE material_name='".$this->name."'";
                 $result = DB::DB_Query($query,DB::DB_Conn());
 
                 if($result > 0){
-                    throw new Exception("part is already registered");
+                    throw new Exception("material is already registered");
                 }else{
-                    $query = "INSERT INTO parts set ".$data;
+                    $query = "INSERT INTO materials set ".$data;
                     $result = DB::DB_Insert_Or_Update($query,DB::DB_Conn());
                     
-                        header("location:../manage-parts.php");
+                        header("location:../manage-materials.php");
                 }
             }
             catch (Exception $e){
@@ -38,13 +38,13 @@
             }
         }
 
-        public function editPart(){
+        public function editMaterial(){
             try{
-                $data = "part_name = '$this->part_name' ";
+                $data = "material_name = '$this->material_name' ";
                 $data .= ",price = '$this->price' ";
                 $data .= ",description = '$this->description' ";
 
-                $query = "UPDATE parts set ".$data."WHERE part_id='".$this->part_id."'";
+                $query = "UPDATE materials set ".$data."WHERE material_id='".$this->material_id."'";
                 DB::DB_Insert_Or_Update($query,DB::DB_Conn());
             }
             catch (Exception $e){
@@ -54,7 +54,7 @@
         }
 
         public function selectAll(){
-            $query = "Select * from parts";
+            $query = "Select * from materials";
             $result = DB::DB_Read($query,DB::DB_Conn());
             return $result;
         }
@@ -65,8 +65,8 @@
         }
 
 
-        public function deletePart(){
-            $query = "DELETE FROM parts where part_id='".$this->part_id."'";
+        public function deleteMaterial(){
+            $query = "DELETE FROM materials where material_id='".$this->material_id."'";
             $result = DB::DB_Read($query,DB::DB_Conn());
             return $result;
         }

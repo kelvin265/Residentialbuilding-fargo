@@ -1,8 +1,8 @@
 <?php require_once "includes/header.php"; ?>
-<?php require_once "classes/part.php"; ?>
+<?php require_once "classes/material.php"; ?>
 <?php 
-  $part = new Part();
-  $parts = $part->selectAll();
+  $material = new Material();
+  $materials = $material->selectAll();
 ?>
     
       <!-- Main Content -->
@@ -13,7 +13,7 @@
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4>Manage Parts</h4>
+                    <h4>Manage Materials</h4>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
@@ -31,19 +31,19 @@
                         </thead>
                         <tbody>
                           <?php $count = 0; ?>
-                          <?php while($part = $parts->fetch_assoc()): ?>
+                          <?php while($material = $materials->fetch_assoc()): ?>
                           <?php $count++; ?>
                           <tr>
                             <td>
                               <?= $count;?>
                             </td>
-                            <td><?= $part['part_name']?></td>
-                            <td><?= $part['description']?></td>
-                            <td><?= $part['price']?></td>
+                            <td><?= $material['material_name']?></td>
+                            <td><?= $material['description']?></td>
+                            <td><?= $material['price']?></td>
                             <td>
                               <a href="#" class="btn btn-primary"><i class="material-icons">create</i> <span
 														class="icon-name"></a>
-                              <a href="controllers/part-controller.php?delete_id=<?= $part['part_id']?>" class="btn btn-danger"><i class="material-icons">delete_forever</i> <span
+                              <a href="controllers/material-controller.php?delete_id=<?= $material['material_id']?>" class="btn btn-danger"><i class="material-icons">delete_forever</i> <span
 														class="icon-name"></a>
                             </td>
                           </tr>

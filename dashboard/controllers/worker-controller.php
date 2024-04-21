@@ -25,4 +25,19 @@
 
     }
 
+    // selecting a worker according to worker type code
+    if(isset($_GET["selectedValue"])){
+        extract($_GET);
+        $worker = new Worker();
+        $query = "select worker_id, concat(first_name, ' ', last_name) as name from workers where worker_type_code='".$selectedValue."'";
+        $workers = $worker->select($query);
+
+        $options = [];
+        while($row = $workers->fetch_assoc()){
+            $options[] = $row;
+        }
+
+        echo json_encode($options);
+    }
+
 ?>

@@ -191,20 +191,6 @@ require_once "classes/user.php";
             </ul>
         </li>
         <li class="menu-header">Media</li>
-        <li class="dropdown">
-            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="image"></i><span>Gallery</span></a>
-            <ul class="dropdown-menu">
-            <li><a class="nav-link" href="light-gallery.php">Light Gallery</a></li>
-            <li><a href="gallery1.php">Gallery 2</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="flag"></i><span>Sliders</span></a>
-            <ul class="dropdown-menu">
-            <li><a href="carousel.php">Bootstrap Carousel.php</a></li>
-            <li><a class="nav-link" href="owl-carousel.php">Owl Carousel</a></li>
-            </ul>
-        </li>
         <li><a class="nav-link" href="timeline.php"><i data-feather="sliders"></i><span>Timeline</span></a></li>
         <li class="menu-header">Main Components</li>
         <li class="dropdown">
@@ -258,10 +244,10 @@ require_once "classes/user.php";
         </li>
         <li class="dropdown">
           <a href="#" class="menu-toggle nav-link has-dropdown"><i
-              data-feather="shopping-bag"></i><span>Parts</span></a>
+              data-feather="shopping-bag"></i><span>Materials</span></a>
           <ul class="dropdown-menu">
-            <li><a class="nav-link" href="create-part.php">New Part</a></li>
-            <li><a class="nav-link" href="manage-parts.php">Manage Parts</a></li>
+            <li><a class="nav-link" href="create-material.php">New Material</a></li>
+            <li><a class="nav-link" href="manage-materials.php">Manage Materials</a></li>
           </ul>
         </li>
         <li class="menu-header">Other Pages</li>

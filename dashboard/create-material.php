@@ -6,14 +6,14 @@
             <div class="row">
               <div class="col-12 col-md-12 col-lg-12">
                 <div class="card">
-                  <form method="post" action="controllers/part-controller.php" class="needs-validation" novalidate="">
+                  <form method="post" action="controllers/material-controller.php" class="needs-validation" novalidate="">
                     <div class="card-header">
-                      <h4>New House Building Project Part</h4>
+                      <h4>New House Building Project Material</h4>
                     </div>
                     <div class="card-body">
                       <div class="form-group">
                         <label>Name</label>
-                        <input type="text" name="new_part_name" class="form-control" required="">
+                        <input type="text" name="new_material_name" class="form-control" required="">
                         <div class="invalid-feedback">
                           What's the name of the machine?
                         </div>
@@ -29,7 +29,7 @@
                         <label>Price</label>
                         <input type="text" name="price" class="form-control" required="">
                         <div class="invalid-feedback">
-                          What's the price of this part?
+                          What's the price of this material?
                         </div>
                       </div>
                     </div>
