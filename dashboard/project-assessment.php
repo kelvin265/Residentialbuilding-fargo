@@ -3,13 +3,26 @@
   require_once "classes/phase.php";
   require_once "classes/activity.php";
 
-//  selecting all departments
+//  selecting all phases
 $phase= new Phase();
 $phases = $phase->selectAll();
+$phaseRows = [];
+while ($row = $phases->fetch_assoc()) {
+    $phaseRows[] = $row;
+}
 
 $activity = new Activity();
 $query = "select * from activities where project_id ='".$_GET['project_id']."'";
 $activities = $activity->select($query);
+$projectActivities = [];
+
+$Estimate_total_cost = 0 ;
+while ($row = $activities->fetch_assoc()) {
+    $projectActivities[] = $row;
+
+    // calculating total estimate cost
+    $Estimate_total_cost += $activity->totalActivityCost($row['activity_id']);
+}
 ?>
       <!-- Main Content -->
       <div class="main-content">
@@ -22,30 +35,31 @@ $activities = $activity->select($query);
                   <a href="#" class="btn btn-icon icon-left btn-primary" data-toggle="modal"  data-target="#estimateModal"><i class="far fa-edit"></i> Add Activity</a>
                 </div>               
                 <div class="card">
-                  <div class="card-header">
+                  <div class="card-header justify-content-between">
                     <h4>Estimated Activities</h4>
+                    <h5>Total Cost is: <?=$Estimate_total_cost;?></h5>
                   </div>
                   <div class="card-body">
                     <div class="list-group">
                     <?php $est_count = 0; ?>
-                    <?php while($act = $activities->fetch_assoc()): ?>
+                    <?php foreach($projectActivities as $act): ?>
                       <?php $est_count++; ?>
                       <a href="manage-resources.php?activity_id=<?= $act['activity_id']?>" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                        <?php while($row = $phases->fetch_assoc()): ?>
+                        <?php foreach($phaseRows as $row): ?>
                           <?php if($row['phase_id'] == $act['phase_id']): ?>
                             <h5 class="mb-1">Phase: <?=$row['name']?></h5>
                           <?php endif; ?>
-                        <?php endwhile; ?>
+                        <?php endforeach; ?>
                           <small>From: <?=$act['start_date']?>, To: <?=$act['end_date']?></small>
                         </div>
                         
                             <p class="mb-1">The activity description is: <?=$act['description']?> </p>
                           
                         
-                        <small>Donec id elit non mi porta.</small>
+                        <small>Total Cost: <?= $activity->totalActivityCost($act['activity_id'])?></small>
                       </a>
-                    <?php endwhile; ?>
+                    <?php endforeach; ?>
                     <?php if($est_count == 0){ echo "No estimated activities for any phase";} ?>
                     </div>
                   </div>
@@ -62,7 +76,7 @@ $activities = $activity->select($query);
                   </div>
                   <div class="card-body">
                     <div class="list-group">
-                      <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                      <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
                           <h5 class="mb-1">List group item heading</h5>
                           <small>3 days ago</small>
@@ -70,24 +84,6 @@ $activities = $activity->select($query);
                         <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus
                           varius blandit.</p>
                         <small>Donec id elit non mi porta.</small>
-                      </a>
-                      <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1">List group item heading</h5>
-                          <small class="text-muted">3 days ago</small>
-                        </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus
-                          varius blandit.</p>
-                        <small class="text-muted">Donec id elit non mi porta.</small>
-                      </a>
-                      <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1">List group item heading</h5>
-                          <small class="text-muted">3 days ago</small>
-                        </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus
-                          varius blandit.</p>
-                        <small class="text-muted">Donec id elit non mi porta.</small>
                       </a>
                     </div>
                   </div>
@@ -119,9 +115,9 @@ $activities = $activity->select($query);
                         </div>
                       </div>
                       <select class="form-control select2" name="phase_id">
-                        <?php while($row=$phases->fetch_assoc()): ?>
+                        <?php foreach($phaseRows as $row): ?>
                           <option value="<?= $row['phase_id']; ?>"><?= $row['name']; ?></option>
-                        <?php endwhile; ?>
+                        <?php endforeach; ?>
                         </select>
                     </div>
                   </div>
@@ -223,7 +219,7 @@ $activities = $activity->select($query);
       <!-- real modal end -->
       <footer class="main-footer">
         <div class="footer-left">
-          <a href="templateshub.net">Templateshub</a></a>
+          <a href="#">Residential Building Fargo</a></a>
         </div>
         <div class="footer-right">
         </div>

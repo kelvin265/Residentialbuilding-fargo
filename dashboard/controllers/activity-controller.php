@@ -26,4 +26,35 @@
 
     }
 
+    // adding worker to activity
+    if(isset($_POST["worker_id"])){
+        extract($_POST);
+        $activity = new Activity();
+        $activity->worker_id = $worker_id;
+        $activity->activity_id = $activity_id;
+
+        $activity->assignWorker();
+    }
+
+    // adding material to activity
+    if(isset($_POST["material_id"])){
+        extract($_POST);
+        $activity = new Activity();
+        $activity->material_id = $material_id;
+        $activity->activity_id = $activity_id;
+        $activity->quantity = $quantity;
+
+        $activity->addMaterial();
+    }
+
+    // adding machine to activity
+    if(isset($_POST["machine_id"])){
+        extract($_POST);
+        $activity = new Activity();
+        $activity->machine_id = $machine_id;
+        $activity->activity_id = $activity_id;
+
+        $activity->addMachine();
+    }
+
 ?>

@@ -92,23 +92,6 @@ require_once "classes/user.php";
             <li><a class="nav-link" href="widget-data.php">Data Widgets</a></li>
             </ul>
         </li>
-        <li class="dropdown">
-            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Apps</span></a>
-            <ul class="dropdown-menu">
-            <li><a class="nav-link" href="chat.php">Chat</a></li>
-            <li><a class="nav-link" href="portfolio.php">Portfolio</a></li>
-            <li><a class="nav-link" href="blog.php">Blog</a></li>
-            <li><a class="nav-link" href="calendar.php">Calendar</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="mail"></i><span>Email</span></a>
-            <ul class="dropdown-menu">
-            <li><a class="nav-link" href="email-inbox.php">Inbox</a></li>
-            <li><a class="nav-link" href="email-compose.php">Compose</a></li>
-            <li><a class="nav-link" href="email-read.php">read</a></li>
-            </ul>
-        </li>
         <li class="menu-header">UI Elements</li>
         <li class="dropdown">
             <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="copy"></i><span>Basic
@@ -149,16 +132,6 @@ require_once "classes/user.php";
         </li>
         <li class="menu-header">Otika</li>
         <li class="dropdown">
-            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layout"></i><span>Forms</span></a>
-            <ul class="dropdown-menu">
-            <li><a class="nav-link" href="basic-form.php">Basic Form</a></li>
-            <li><a class="nav-link" href="forms-advanced-form.php">Advanced Form</a></li>
-            <li><a class="nav-link" href="forms-editor.php">Editor</a></li>
-            <li><a class="nav-link" href="forms-validation.php">Validation</a></li>
-            <li><a class="nav-link" href="form-wizard.php">Form Wizard</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
             <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="grid"></i><span>Tables</span></a>
             <ul class="dropdown-menu">
             <li><a class="nav-link" href="basic-table.php">Basic Tables</a></li>
@@ -190,8 +163,6 @@ require_once "classes/user.php";
             <li><a class="nav-link" href="icon-weather-icon.php">Weather Icon</a></li>
             </ul>
         </li>
-        <li class="menu-header">Media</li>
-        <li><a class="nav-link" href="timeline.php"><i data-feather="sliders"></i><span>Timeline</span></a></li>
         <li class="menu-header">Main Components</li>
         <li class="dropdown">
           <a href="#" class="menu-toggle nav-link has-dropdown"><i

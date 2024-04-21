@@ -2,14 +2,35 @@
   require_once "includes/header.php"; 
   require_once "classes/worker-type.php";
   require_once "classes/activity.php";
+  require_once "classes/material.php";
+  require_once "classes/machine.php";
+  require_once "classes/worker.php";
 
-//  selecting all departments
+//  selecting data for the modals
 $worker_type= new WorkerType();
 $worker_types = $worker_type->selectAll();
 
-$activity = new Activity();
-$query = "select * from activities where project_id ='".$_GET['project_id']."'";
-$activities = $activity->select($query);
+$material= new Material();
+$materials = $material->selectAll();
+
+$machine = new Machine();
+$machines = $machine->selectAll();
+
+// selecting data for the estimated workers
+$activity_worker = new Worker();
+$query =  "SELECT * FROM activity_worker_cost where activity_id='".$_GET['activity_id']."'";
+$activity_workers = $activity_worker->select($query);
+
+// selecting data for the estimated materials
+$activity_material = new Material();
+$query =  "SELECT * FROM activity_material_cost where activity_id='".$_GET['activity_id']."'";
+$activity_materials = $activity_material->select($query);
+
+// selecting data for estimated machines
+$activity_machine= new Machine();
+$query =  "SELECT * FROM activity_machine_cost where activity_id='".$_GET['activity_id']."'";
+$activity_machines = $activity_machine->select($query);
+
 ?>
       <!-- Main Content -->
       <div class="main-content">
@@ -23,35 +44,31 @@ $activities = $activity->select($query);
                 </div>               
                 <div class="card">
                   <div class="card-header">
-                    <h4>Assigned Workers</h4>
+                    <h4>Estimated Workers</h4>
                   </div>
                   <div class="card-body">
                     <div class="list-group">
                     <?php $est_count = 0; ?>
-                    <?php while($act = $activities->fetch_assoc()): ?>
+                    <?php while($row = $activity_workers->fetch_assoc()): ?>
                       <?php $est_count++; ?>
                       <a href="manage-resources" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                        <?php while($row = $phases->fetch_assoc()): ?>
-                          <?php if($row['phase_id'] == $act['phase_id']): ?>
-                            <h5 class="mb-1">Phase: <?=$row['name']?></h5>
-                          <?php endif; ?>
-                        <?php endwhile; ?>
-                          <small>From: <?=$act['start_date']?>, To: <?=$act['end_date']?></small>
+                            <h5 class="mb-1">Name: <?=$row['worker_name']?></h5>
+                          <small>Type of worker: <?=$row['worker_type_description']?></small>
                         </div>
                         
-                            <p class="mb-1">The activity description is: <?=$act['description']?> </p>
+                            <p class="mb-1">The rate per hour is: <?=$row['hourly_rate']?>, Hours worked per day is: 12 hours, Total number of days is: <?=$row['total_days']?></p>
                           
                         
-                        <small>Donec id elit non mi porta.</small>
+                        <small>Total cost is: <?=$row['total_cost']?></small>
                       </a>
                     <?php endwhile; ?>
-                    <?php if($est_count == 0){ echo "No estimated activities for any phase";} ?>
+                    <?php if($est_count == 0){ echo "No assigned workers to this activity";} ?>
                     </div>
                   </div>
                 </div>
               </div>
-<!-- Estimated Parts -->
+<!-- Estimated Materials -->
               <div class="col-12 col-md-6 col-lg-6">
                 <div class="buttons">
                   <a href="#" class="btn btn-icon icon-left btn-primary" data-toggle="modal"  data-target="#materialModal"><i class="far fa-edit"></i> Add Material</a>
@@ -63,25 +80,21 @@ $activities = $activity->select($query);
                   <div class="card-body">
                     <div class="list-group">
                     <?php $est_count = 0; ?>
-                    <?php while($act = $activities->fetch_assoc()): ?>
+                    <?php while($row = $activity_materials->fetch_assoc()): ?>
                       <?php $est_count++; ?>
                       <a href="manage-resources" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                        <?php while($row = $phases->fetch_assoc()): ?>
-                          <?php if($row['phase_id'] == $act['phase_id']): ?>
-                            <h5 class="mb-1">Phase: <?=$row['name']?></h5>
-                          <?php endif; ?>
-                        <?php endwhile; ?>
-                          <small>From: <?=$act['start_date']?>, To: <?=$act['end_date']?></small>
+                            <h5 class="mb-1">Material: <?=$row['material_name']?></h5>
+                          <small>Price: <?=$row['price']?></small>
                         </div>
                         
-                            <p class="mb-1">The activity description is: <?=$act['description']?> </p>
+                            <p class="mb-1">Quantity: <?=$row['quantity']?> </p>
                           
                         
-                        <small>Donec id elit non mi porta.</small>
+                        <small>Total Cost: <?=$row['total_cost']?></small>
                       </a>
                     <?php endwhile; ?>
-                    <?php if($est_count == 0){ echo "No estimated activities for any phase";} ?>
+                    <?php if($est_count == 0){ echo "No estimated materials for this activity";} ?>
                     </div>
                   </div>
                 </div>
@@ -89,41 +102,27 @@ $activities = $activity->select($query);
 <!-- Estimated Machinery-->
               <div class="col-12 col-md-6 col-lg-6">
                 <div class="buttons">
-                  <a href="#" class="btn btn-icon icon-left btn-primary" data-toggle="modal"  data-target="#realModal"><i class="far fa-edit"></i> Add Activity</a>
+                  <a href="#" class="btn btn-icon icon-left btn-primary" data-toggle="modal"  data-target="#machineryModal"><i class="far fa-edit"></i> Add Machine</a>
                 </div>
                 <div class="card">
                   <div class="card-header">
-                    <h4>Actual Activities</h4>
+                    <h4>Estimated machines to be used</h4>
                   </div>
                   <div class="card-body">
                     <div class="list-group">
-                      <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-                        <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1">List group item heading</h5>
-                          <small>3 days ago</small>
-                        </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus
-                          varius blandit.</p>
-                        <small>Donec id elit non mi porta.</small>
-                      </a>
+                    <?php $est_count = 0; ?>
+                    <?php while($row = $activity_machines->fetch_assoc()): ?>
+                      <?php $est_count++; ?>
                       <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1">List group item heading</h5>
-                          <small class="text-muted">3 days ago</small>
+                          <h5 class="mb-1">Machine: <?= $row['name'] ?></h5>
+                          <small>Rate Per Day: <?= $row['daily_rate'] ?></small>
                         </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus
-                          varius blandit.</p>
-                        <small class="text-muted">Donec id elit non mi porta.</small>
+                        <p class="mb-1">Total Number of days: <?= $row['total_days'] ?></p>
+                        <small>Total Cost: <?= $row['total_cost'] ?></small>
                       </a>
-                      <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1">List group item heading</h5>
-                          <small class="text-muted">3 days ago</small>
-                        </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus
-                          varius blandit.</p>
-                        <small class="text-muted">Donec id elit non mi porta.</small>
-                      </a>
+                      <?php endwhile; ?>
+                    <?php if($est_count == 0){ echo "No estimated machines for this activity";} ?>
                     </div>
                   </div>
                 </div>
@@ -138,7 +137,7 @@ $activities = $activity->select($query);
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="formModal">Add activity for estimation purposes</h5>
+                <h5 class="modal-title" id="formModal">Add worker for estimation purposes</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -150,7 +149,7 @@ $activities = $activity->select($query);
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <div class="input-group-text">
-                          <i class="fas fa-chart-pie"></i>
+                          <i class="fas fa-address-card"></i>
                         </div>
                       </div>
                       <select class="form-control select2" id="worker_type">
@@ -165,7 +164,7 @@ $activities = $activity->select($query);
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <div class="input-group-text">
-                          <i class="fas fa-newspaper"></i>
+                          <i class="fas fa-user"></i>
                         </div>                       
                       </div>
                       <select class="form-control select2" id="worker" name="worker_id">
@@ -180,10 +179,93 @@ $activities = $activity->select($query);
             </div>
           </div>
         </div>
-      <!-- real modal end -->
-      <footer class="main-footer">
+      <!-- material modal -->
+      <div class="modal fade" id="materialModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="formModal">Add building material for estimation purposes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class="" method="Post" action="controllers/activity-controller.php">
+                  <div class="form-group">
+                    <label>Choose building material</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="fas fa-hotel"></i>
+                        </div>
+                      </div>
+                      <select class="form-control select2" name="material_id">
+                        <?php while($row=$materials->fetch_assoc()): ?>
+                          <option value="<?= $row['material_id']; ?>"><?= $row['material_name']; ?></option>
+                        <?php endwhile; ?>
+                        </select>
+                        <input type="hidden" name="activity_id" value="<?= $_GET['activity_id']?>" id="idInput">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>quantity</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="fas fa-balance-scale"></i>
+                        </div>
+                      </div>
+                        <input type="text" name="quantity" class="form-control">
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      <!-- machine modal -->
+      <div class="modal fade" id="machineryModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="formModal">Estimate machines to be used</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class="" method="Post" action="controllers/activity-controller.php">
+                  <div class="form-group">
+                    <label>Choose Machine</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="fas fa-car-side"></i>
+                        </div>
+                      </div>
+                      <select class="form-control select2" name="machine_id">
+                        <?php while($row=$machines->fetch_assoc()): ?>
+                          <option value="<?= $row['machine_id']; ?>"><?= $row['name']; ?></option>
+                        <?php endwhile; ?>
+                        </select>
+                        <input type="hidden" name="activity_id" value="<?= $_GET['activity_id']?>" id="idInput">
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      
+        <footer class="main-footer">
         <div class="footer-left">
-          <a href="templateshub.net">Templateshub</a></a>
+          <a href="#">Residential Building Fargo</a></a>
         </div>
         <div class="footer-right">
         </div>
