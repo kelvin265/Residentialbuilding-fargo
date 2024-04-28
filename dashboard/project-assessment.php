@@ -47,6 +47,8 @@ while ($row = $activities->fetch_assoc()) {
               <div class="col-12 col-md-6 col-lg-6">
                 <div class="buttons">
                   <a href="#" class="btn btn-icon icon-left btn-primary" data-toggle="modal"  data-target="#estimateModal"><i class="far fa-edit"></i> Add Activity</a>
+                  <a href="bill-of-quantity.php?project_id=<?= $_GET['project_id']?>" class="btn btn-icon icon-left btn-success"><i class="fas fa-paper-plane"></i> Bill of Quantitty</a>
+                
                 </div>               
                 <div class="card">
                   <div class="card-header justify-content-between">
