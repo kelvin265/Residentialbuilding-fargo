@@ -1,5 +1,6 @@
 <?php
     include_once "../classes/activity.php";
+    include_once "../classes/project.php";
     // adding a new estimate activity
     if(isset($_POST["est_description"])){
         extract($_POST);
@@ -27,6 +28,13 @@
 
 
         $activity->new_actual_Activity();
+
+        // update status
+        $project = new Project();
+        $project->project_id = $project_id;
+        $project->start_date = $start_date;
+
+        $project->editProject();
     }
 
      // deleting a activity

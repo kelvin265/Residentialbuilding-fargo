@@ -42,7 +42,14 @@
             try{
                 $data = "";
                 if(isset($this->start_date)){
-                    $data = "start_date = '$this->start_date' ";
+                    $data = "status = 'inprogress' ";
+                    $query = "Select * from projects where project_id='".$this->project_id."' and status='pending'";
+                    $result = DB::DB_Query($query,DB::DB_Conn());
+
+                    if($result > 0){
+                        $data .= ", start_date = '$this->start_date' ";
+                    }
+                    
                 }
                 if(isset($this->end_date)){
                     $data = " end_date = '$this->end_date' ";

@@ -31,6 +31,7 @@ require_once "classes/user.php";
   <link rel="stylesheet" href="assets/bundles/izitoast/css/iziToast.min.css">
   <link rel="stylesheet" href="assets/bundles/fullcalendar/fullcalendar.min.css">
   <link rel="stylesheet" href="assets/bundles/chocolat/dist/css/chocolat.css">
+  <link rel="stylesheet" href="assets/bundles/morris/morris.css">
   
   <!-- Template CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
