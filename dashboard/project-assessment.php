@@ -85,6 +85,7 @@ while ($row = $activities->fetch_assoc()) {
               <div class="col-12 col-md-6 col-lg-6">
                 <div class="buttons">
                   <a href="#" class="btn btn-icon icon-left btn-primary" data-toggle="modal"  data-target="#realModal"><i class="far fa-edit"></i> Add Activity</a>
+                  <a href="expenditure.php?project_id=<?= $_GET['project_id']?>" class="btn btn-icon icon-left btn-success"><i class="fas fa-paper-plane"></i> Expenditure Report</a>
                 </div>
                 <div class="card">
                   <div class="card-header justify-content-between">

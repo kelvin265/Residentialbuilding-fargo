@@ -12,11 +12,11 @@
 
     $activity = new Activity();
     // retrieving data for estimated activities
-    $query = "select * from activities where project_id ='".$_GET['project_id']."' and estimated=1";
+    $query = "select * from activities where project_id ='".$_GET['project_id']."' and estimated=0";
     $activities = $activity->select($query);
-    $estActivities = [];
+    $realActivities = [];
     while ($row = $activities->fetch_assoc()) {
-        $estActivities[] = $row;
+        $realActivities[] = $row;
     }
     // retrieving data for estimated activities
     $query = "select Concat(u.first_name, ' ', u.last_name) AS customer, p.project_name from users u, projects p where u.user_id = p.customer_id and p.project_id ='".$_GET['project_id']."'";
@@ -39,7 +39,7 @@ use PHPMailer\PHPMailer\Exception;
 // Connect to the database (assuming you have already established a database connection)
 
 // Retrieving data for estimated activities
-// Assuming $estActivities is already populated from the database
+// Assuming $realActivities is already populated from the database
 // Example data population is removed for brevity
 
 // Create a new TCPDF instance
@@ -47,7 +47,7 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 
 // Set document information and add a page
 $pdf->SetCreator('Residential Building Fargo');
-$pdf->SetTitle('Bill of Quantity Report');
+$pdf->SetTitle('Project Expenditure Report');
 $pdf->AddPage();
 
 // Add a logo to the PDF at the top
@@ -59,7 +59,9 @@ $pdf->SetY(50); // Adjust the Y-coordinate as needed
 
 // Add the title "Bill of Quantity" centered
 $pdf->SetFont('helvetica', 'B', 22); // Set font to bold
-$pdf->Cell(0, 10, 'Bill of Quantity', 0, 1, 'C'); // Output the title centered and move to the next line
+$pdf->Cell(0, 10, 'Project Expenditure Report', 0, 1, 'C'); // Output the title centered and move to the next line
+$pdf->SetFont('helvetica', 'B', 12); // Set font to bold
+$pdf->Cell(0, 10, 'A report on actual expenses for the project', 0, 1, 'C');
 
 $pdf->SetFont('helvetica', '', 14);
 $pdf->SetXY(10, 70); // Set position for customer name
@@ -75,7 +77,7 @@ $pdf->SetFont('helvetica', '', 12); // Set font to regular
 $html = '<table border="1" style="border-collapse: collapse;">'; // Add border-collapse style for better appearance
 $html .= '<thead><tr><th style="padding: 8px;">Phase</th><th style="padding: 8px;">Activity</th><th style="padding: 8px;">Start Date</th><th style="padding: 8px;">End Date</th><th style="padding: 8px;">Cost</th></tr></thead>';
 $html .= '<tbody>';
-foreach ($estActivities as $act) {
+foreach ($realActivities as $act) {
     $html .= '<tr>';
     // Retrieve phase name from phaseRows array
     $phaseName = '';
@@ -107,7 +109,7 @@ $pdf->Output($pdfFile, 'F');
 
 // Display the PDF in the browser
 header('Content-Type: application/pdf');
-header('Content-Disposition: inline; filename="Estimated_Activities_Report.pdf"');
+header('Content-Disposition: inline; filename="Project_Expenditure_Report.pdf"');
 readfile($pdfFile);
 ?>
 

@@ -64,8 +64,6 @@
                               <a href="#" id="modal1" class="btn btn-primary" data-id="<?= $project['project_id']?>" data-toggle="modal"  data-target="#exampleModal"><i class="material-icons">create</i> <span
 														class="icon-name"></a>
                             <?php endif; ?>
-                              <a href="controllers/project-controller.php?delete_id=<?= $project['project_id']?>" class="btn btn-danger"><i class="material-icons">delete_forever</i> <span
-														class="icon-name"></a>
                             </td>
                           </tr>
                           <?php endwhile; ?>

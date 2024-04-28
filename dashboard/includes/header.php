@@ -236,15 +236,6 @@ require_once "classes/user.php";
           </ul>
         </li>
         <?php endif; ?>
-        <li class="dropdown">
-          <a href="#" class="menu-toggle nav-link has-dropdown"><i
-              data-feather="copy"></i><span>Reports</span></a>
-          <ul class="dropdown-menu">
-            <li><a href="emp-performance-report.php">Project Progress</a></li>
-            <li><a href="controller/report.php?overall=0">Overall performance</a></li>
-
-          </ul>
-        </li>
         </ul>
     </aside>
     </div>
