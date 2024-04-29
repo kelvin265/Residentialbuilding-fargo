@@ -1,7 +1,6 @@
 <?php 
   require_once "includes/header.php"; 
   require_once "classes/project.php"; 
-  require_once "classes/user.php"; 
 
   $project = new Project();
   $projects_pending = 0;
@@ -23,7 +22,7 @@
         $customer = $row["fullname"];
       }
   }else{
-    $customer = $_SESSION['login_first_name'] +' ' + $_SESSION['login_last_name'];
+    $customer = $_SESSION['login_first_name'] .' ' . $_SESSION['login_last_name'];
   }
   }
   else{
