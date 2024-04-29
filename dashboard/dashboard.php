@@ -21,6 +21,8 @@
         $projects_completed += $row["complete"];
         $customer = $row["fullname"];
       }
+  }else{
+    $customer = $_SESSION['login_first_name'] +' ' + $_SESSION['login_last_name'];
   }
   }
   else{
