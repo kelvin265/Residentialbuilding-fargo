@@ -34,7 +34,7 @@
 
     }
 
-    // deleting a Project
+    // project progress monitoring
     if(isset($_GET["project_progress"])){
         extract($_GET);
         $project = new Project();

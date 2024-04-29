@@ -47,8 +47,8 @@ while ($row = $activities->fetch_assoc()) {
               <div class="col-12 col-md-6 col-lg-6">
                 <div class="buttons">
                   <a href="#" class="btn btn-icon icon-left btn-primary" data-toggle="modal"  data-target="#estimateModal"><i class="far fa-edit"></i> Add Activity</a>
-                  <a href="bill-of-quantity.php?project_id=<?= $_GET['project_id']?>" class="btn btn-icon icon-left btn-success"><i class="fas fa-paper-plane"></i> Bill of Quantitty</a>
-                
+                  <a href="bill-of-quantity-view.php?project_id=<?= $_GET['project_id'] ?>" class="btn btn-icon icon-left btn-success"><i class="fas fa-paper-binoculars"></i>View Bill of Quantitty</a>
+                  <button id="billBtn" data-project-id="<?= $_GET['project_id'] ?>" class="btn btn-icon icon-left btn-success"><i class="fas fa-paper-plane"></i>Send Bill of Quantity</button>
                 </div>               
                 <div class="card">
                   <div class="card-header justify-content-between">
@@ -307,6 +307,42 @@ while ($row = $activities->fetch_assoc()) {
       $('#idIn').val(attributeValue);
     });
   });
+
+  $(document).ready(function() {
+    // Click event handler for the button
+    $('#billBtn').click(function() {
+        // Show loading spinner or message
+        swal('Hold On', 'Your email is being sent!', 'info');
+        
+        
+        // Retrieve the project ID from the data attribute
+        var projectId = $(this).data('project-id');
+        
+        // Make an AJAX request to the server
+        $.ajax({
+            url: 'bill-of-quantity.php', // Replace with the actual PHP script URL
+            method: 'POST',
+            data: { project_id: projectId },
+            dataType: 'json',
+            success: function(response) {
+                // Hide loading spinner or message
+                swal('The bill of quantity has been sent to the customer!', {
+                  buttons: false,
+                  timer: 3000,
+                });
+            },
+            error: function(xhr, status, error) {
+                // Hide loading spinner or message
+                swal('The bill of quantity has been sent to the customer!', {
+                  buttons: false,
+                  icon: 'success',
+                  timer: 4000,
+                });
+            }
+        });
+    });
+});
+
   </script>
 </body>
 

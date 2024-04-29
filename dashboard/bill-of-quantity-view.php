@@ -12,22 +12,20 @@
 
     $activity = new Activity();
     // retrieving data for estimated activities
-    $query = "select * from activities where project_id ='".$_POST['project_id']."' and estimated=1";
+    $query = "select * from activities where project_id ='".$_GET['project_id']."' and estimated=1";
     $activities = $activity->select($query);
     $estActivities = [];
     while ($row = $activities->fetch_assoc()) {
         $estActivities[] = $row;
     }
     // retrieving data for estimated activities
-    $query = "select Concat(u.first_name, ' ', u.last_name) AS customer, u.email, p.project_name from users u, projects p where u.user_id = p.customer_id and p.project_id ='".$_POST['project_id']."'";
+    $query = "select Concat(u.first_name, ' ', u.last_name) AS customer, p.project_name from users u, projects p where u.user_id = p.customer_id and p.project_id ='".$_GET['project_id']."'";
     $activities = $activity->select($query);
     $customer;
     $project;
-    $email;
     while ($row = $activities->fetch_assoc()) {
         $customer = $row['customer'];
         $project = $row['project_name'];
-        $email = $row['email'];
     }
 ?>
 
@@ -36,7 +34,6 @@ require_once('../vendor/autoload.php');
 
 use TCPDF as TCPDF;
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 // Connect to the database (assuming you have already established a database connection)
@@ -78,7 +75,6 @@ $pdf->SetFont('helvetica', '', 12); // Set font to regular
 $html = '<table border="1" style="border-collapse: collapse;">'; // Add border-collapse style for better appearance
 $html .= '<thead><tr><th style="padding: 8px;">Phase</th><th style="padding: 8px;">Activity</th><th style="padding: 8px;">Start Date</th><th style="padding: 8px;">End Date</th><th style="padding: 8px;">Cost</th></tr></thead>';
 $html .= '<tbody>';
-$totalCost = 0;
 foreach ($estActivities as $act) {
     $html .= '<tr>';
     // Retrieve phase name from phaseRows array
@@ -109,42 +105,9 @@ $pdf->writeHTML($html);
 $pdfFile = tempnam(sys_get_temp_dir(), 'pdf');
 $pdf->Output($pdfFile, 'F');
 
-// Set up PHPMailer
-$mail = new PHPMailer(true);
-$data = '';
-try {
-    //Server settings
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-    $mail->isSMTP();                                            //Send using SMTP
-    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'magaletabutterfly@gmail.com';                     //SMTP username
-    $mail->Password   = 'kvzhcorhpbarprlm';                               //SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-    $mail->Port       = 465;
-
-    // Sender and recipient
-    $mail->setFrom('magaletabutterlfy@gmail.com', 'Fargo Building System');
-    $mail->addAddress($email, 'Recipient Name');
-
-    // Email subject and body
-    $mail->Subject = 'Bill of Quantity Report';
-    $mail->Body = 'Please find attached the bill of quantity report. Please do not reply since this is system generated mail.';
-
-    // Attach the PDF file
-    $mail->addAttachment($pdfFile, 'Bill_of_Quantity_Report.pdf');
-
-    // Send the email
-    $mail->send();
-
-    $data = 'success';
-} catch (Exception $e) {
-    $data = 'error';
-}
-
-// Clean up: Delete the temporary PDF file
-unlink($pdfFile);
-
-    echo json_encode($data);
+// Display the PDF in the browser
+header('Content-Type: application/pdf');
+header('Content-Disposition: inline; filename="Estimated_Activities_Report.pdf"');
+readfile($pdfFile);
 ?>
 
