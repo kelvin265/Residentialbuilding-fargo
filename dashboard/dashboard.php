@@ -1,6 +1,7 @@
 <?php 
   require_once "includes/header.php"; 
   require_once "classes/project.php"; 
+  require_once "classes/user.php"; 
 
   $project = new Project();
   $projects_pending = 0;
